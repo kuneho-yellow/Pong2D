@@ -4,16 +4,16 @@ using UnityEngine.Events;
 public class BallMovement : MonoBehaviour
 {
     [SerializeField] [Range(5f, 20f)]
-    private float startingSpeed = 10f;
+    float startingSpeed = 10f;
     [SerializeField]
-    private Transform parentWhenInactive;
+    Transform parentWhenInactive;
     [SerializeField]
-    private UnityEvent onBallDropped;
+    UnityEvent onBallDropped;
 
-    private Rigidbody2D thisRigidbody;
-    private bool isActive = false;          // Set to true when ball is moving, false when it is still coasting on top of the paddle
-    private bool isInputStarted = false;    // Set to true when the user touches the lower half of the screen
-    private bool addForceFlag = false;
+    Rigidbody2D thisRigidbody;
+    bool isActive = false;          // Set to true when ball is moving, false when it is still coasting on top of the paddle
+    bool isInputStarted = false;    // Set to true when the user touches the lower half of the screen
+    bool addForceFlag = false;
 
 #region MonoBehavior
 

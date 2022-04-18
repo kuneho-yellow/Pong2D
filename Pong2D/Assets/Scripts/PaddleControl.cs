@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PaddleControl : MonoBehaviour
 {
-    private Rigidbody2D thisRigidbody;
+    Rigidbody2D thisRigidbody;
 
 #region MonoBehavior
 

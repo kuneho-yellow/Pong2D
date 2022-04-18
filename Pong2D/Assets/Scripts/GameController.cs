@@ -1,28 +1,31 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
     [SerializeField] [Range(1, 5)]
-    private int startingLives = 3;
+    int startingLives = 3;
     [SerializeField] [Range(1, 10)]
-    private int maxLives = 5;
+    int maxLives = 5;
     [SerializeField]
-    private TMPro.TextMeshProUGUI livesLabel;
+    TMPro.TextMeshProUGUI livesLabel;
+    [SerializeField]
+    TMPro.TextMeshProUGUI popupLevelLabel;
+    [SerializeField]
+    TMPro.TextMeshProUGUI popupMessageLabel;
+    [SerializeField]
+    RectTransform OverlayPanel;
+    [SerializeField]
+    RectTransform PlayButton;
+    [SerializeField]
+    RectTransform NextButton;
 
-    private int currentLives;
+    int currentLives;
 
 #region MonoBehavior
 
     void Start()
     {
         StartGame();
-        UnpauseGame();
-    }
-
-    void Update()
-    {
-        
     }
 
 #endregion // MonoBehaviour
@@ -50,8 +53,9 @@ public class GameController : MonoBehaviour
 
     public void PauseGame()
     {
-        // TODO: Better pausing mechanism
+        // TODO: Better pausing mechanism than editing timeScale
         Time.timeScale = 0f;
+        ShowPausePopup();
     }
 
     public void UnpauseGame()
@@ -59,48 +63,86 @@ public class GameController : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    void StartGame()
+    public void StartGame()
     {
+        UpdateLevelLabel();
         UpdateLifeCounter(startingLives);
+        UnpauseGame(); // Make sure time is running
     }
 
     void WinGame()
     {
-        // TODO: Show win screen
+        Time.timeScale = 0f;
+        ShowWinPopup();
     }
 
     void LoseGame()
     {
-        // TODO: Show lose screen
+        Time.timeScale = 0f;
+        ShowLosePopup();
+    }
+
+    public void RestartGame()
+    {
+        SceneLoader.Instance.RestartLevel();
+    }
+
+    public void QuitGame()
+    {
+        SceneLoader.Instance.LoadMainScreen();
+    }
+
+    public void GoToNextLevel()
+    {
+        SceneLoader.Instance.LoadNextLevel();
     }
 
     void UpdateLifeCounter(int targetCount)
     {
         currentLives = Mathf.Clamp(0, targetCount, maxLives);
-        livesLabel.SetText("Lives: " + currentLives);
+        UpdateLivesUI();
     }
 
 #endregion // Game Management
 
-#region Level Management
+#region UI
 
-    // TODO: Place somewhere else
+    // TODO: Put these somewhere else
 
-    public void RestartLevel()
+    void UpdateLivesUI()
     {
-        SceneManager.LoadScene(1); // Game Screen
+        livesLabel.SetText("Lives: " + currentLives);
     }
 
-    public void LoadNextLevel()
+    void UpdateLevelLabel()
     {
-        
+        popupLevelLabel.SetText("Level " + SceneLoader.Instance.LoadedLevel);
     }
 
-    public void QuitToMainMenu()
+    void ShowPausePopup()
     {
-        SceneManager.LoadScene(0); // Title Screen
+        popupMessageLabel.SetText("PAUSED");
+        PlayButton.gameObject.SetActive(true);
+        NextButton.gameObject.SetActive(false);
+        OverlayPanel.gameObject.SetActive(true);
     }
 
-#endregion // Level Management
+    void ShowWinPopup()
+    {
+        popupMessageLabel.SetText("YOU WIN");
+        PlayButton.gameObject.SetActive(false);
+        NextButton.gameObject.SetActive(true);
+        OverlayPanel.gameObject.SetActive(true);
+    }
+
+    void ShowLosePopup()
+    {
+        popupMessageLabel.SetText("YOU LOSE");
+        PlayButton.gameObject.SetActive(false);
+        NextButton.gameObject.SetActive(false);
+        OverlayPanel.gameObject.SetActive(true);
+    }
+
+#endregion // UI
 
 }

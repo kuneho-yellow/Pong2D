@@ -2,7 +2,8 @@ Pong2D/Library/
 Pong2D/Logs/
 Pong2D/Temp/
 Pong2D/UserSettings/
-PongD2/obj/
+Pong2D/obj/
 Pong2D/.vscode/
 *.sln
 *.apk
+*.csproj
