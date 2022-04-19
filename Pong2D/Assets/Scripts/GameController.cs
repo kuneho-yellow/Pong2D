@@ -111,7 +111,7 @@ public class GameController : MonoBehaviour
 
     void UpdateLivesUI()
     {
-        livesLabel.SetText("Lives: " + currentLives);
+        livesLabel.SetText("x " + currentLives);
     }
 
     void UpdateLevelLabel()

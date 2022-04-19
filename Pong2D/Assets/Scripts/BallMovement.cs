@@ -4,7 +4,7 @@ using UnityEngine.Events;
 public class BallMovement : MonoBehaviour
 {
     [SerializeField] [Range(5f, 20f)]
-    float startingSpeed = 10f;
+    float speed = 10f;
     [SerializeField]
     Transform parentWhenInactive;
     [SerializeField]
@@ -13,7 +13,7 @@ public class BallMovement : MonoBehaviour
     Rigidbody2D thisRigidbody;
     bool isActive = false;          // Set to true when ball is moving, false when it is still coasting on top of the paddle
     bool isInputStarted = false;    // Set to true when the user touches the lower half of the screen
-    bool addForceFlag = false;
+    bool startMovementFlag = false;
 
 #region MonoBehavior
 
@@ -54,13 +54,23 @@ public class BallMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Add a force to make the ball move
-        if (addForceFlag)
+        if (!isActive)
         {
-            float forceToAdd = startingSpeed * thisRigidbody.mass / Time.fixedDeltaTime;
-            thisRigidbody.AddForce(Vector2.up * forceToAdd); // TODO: Control the angle through some mechanic
-            addForceFlag = false;
+            return;
         }
+
+        // Start moving the ball by assigning an upward velocity
+        if (startMovementFlag)
+        {
+            this.thisRigidbody.velocity = Vector2.up * speed;
+            startMovementFlag = false;
+        }
+
+        // Ball can naturally gain/lose speed when getting stuck between other rigidbodies
+        // Prevent this by regularly correcting the speed to a constant value
+        thisRigidbody.velocity = thisRigidbody.velocity.normalized * speed;
+
+        // TODO: Adjust movement angle to avoid getting stuck perpetually bouncing horizontally/verticlaly
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -80,7 +90,7 @@ public class BallMovement : MonoBehaviour
     {
         transform.SetParent(null);
         thisRigidbody.simulated = true;
-        addForceFlag = true;
+        startMovementFlag = true;
         isActive = true;
     }
 
@@ -91,7 +101,7 @@ public class BallMovement : MonoBehaviour
         thisRigidbody.simulated = false;
         transform.position = parentWhenInactive.position;
         transform.SetParent(parentWhenInactive);
-        addForceFlag = false;
+        startMovementFlag = false;
         isActive = false;
     }
 

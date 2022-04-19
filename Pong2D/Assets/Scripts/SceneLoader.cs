@@ -43,7 +43,14 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        SceneManager.LoadScene(GetSceneIndexFromLevel(LoadedLevel + 1));
+        if (LoadedLevel == MAX_LEVEL)
+        {
+            LoadMainScreen();
+        }
+        else
+        {
+            SceneManager.LoadScene(GetSceneIndexFromLevel(LoadedLevel + 1));
+        }
     }
 
     public void LoadMainScreen()
@@ -60,7 +67,7 @@ public class SceneLoader : MonoBehaviour
     int GetSceneIndexFromLevel(int level)
     {
         // TODO: Update this if scene indices do not align with level number
-        return Mathf.Clamp(MIN_LEVEL, level, MAX_LEVEL);
+        return Mathf.Clamp(level, MIN_LEVEL, MAX_LEVEL);
     }
 
 #endregion // Level Management
