@@ -25,6 +25,9 @@ public class SceneLoader : MonoBehaviour
             Instance.LoadedLevel = levelNo;
             Destroy(this.gameObject);
         }
+
+        // Simplistic handling of mobile back button
+        Input.backButtonLeavesApp = true;
     }
 
 #endregion // MonoBehavior
