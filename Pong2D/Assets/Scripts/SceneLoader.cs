@@ -5,7 +5,8 @@ public class SceneLoader : MonoBehaviour
 {
     public static SceneLoader Instance;
     public int LoadedLevel { get; private set; }
-    [SerializeField] int levelNo;
+    [SerializeField]
+    int levelNo;
 
     const int MIN_LEVEL = 1;
     const int MAX_LEVEL = 3;

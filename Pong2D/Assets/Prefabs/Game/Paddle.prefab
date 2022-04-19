@@ -41,12 +41,12 @@ GameObject:
   m_Component:
   - component: {fileID: 6057252596082014563}
   - component: {fileID: 6057252596082014572}
+  - component: {fileID: -1124663906570179853}
   - component: {fileID: 6057252596082014573}
   - component: {fileID: 6057252596082014574}
-  - component: {fileID: -1124663906570179853}
   m_Layer: 0
   m_Name: Paddle
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,7 +109,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -5177388603050735206, guid: 8884154dfe85442a3a3578be807dbcdf, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.82745105, g: 0.4901961, b: 0.2784314, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
@@ -119,6 +119,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-1124663906570179853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6057252596082014575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b3aefd726692e44e9eb55ce73bf2b83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onGetLifePowerUp:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!70 &6057252596082014573
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -156,15 +171,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 6
---- !u!114 &-1124663906570179853
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6057252596082014575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b3aefd726692e44e9eb55ce73bf2b83, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

@@ -31,7 +31,6 @@ public class BallMovement : MonoBehaviour
         Deactivate();
     }
 
-    // Update is called once per frame
     void Update()
     {
         // If ball is not yet active, check user input
@@ -73,6 +72,10 @@ public class BallMovement : MonoBehaviour
         }
     }
 
+#endregion // MonoBehaviour
+
+#region  Helper Methods
+
     void Activate()
     {
         transform.SetParent(null);
@@ -91,10 +94,6 @@ public class BallMovement : MonoBehaviour
         addForceFlag = false;
         isActive = false;
     }
-
-#endregion // MonoBehaviour
-
-#region  Helper Methods
 
 #endregion // Helper Methods
 

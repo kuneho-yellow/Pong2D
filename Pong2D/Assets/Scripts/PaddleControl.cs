@@ -1,7 +1,11 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PaddleControl : MonoBehaviour
 {
+    [SerializeField]
+    UnityEvent onGetLifePowerUp;
+
     Rigidbody2D thisRigidbody;
 
 #region MonoBehavior
@@ -22,8 +26,29 @@ public class PaddleControl : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        // TODO: PowerUps
+        if (other.gameObject.tag == "PowerUp")
+        {
+            PowerUpType powerUpType = other.GetComponent<PowerUp>().Type;
+            ProcessPowerUp(powerUpType);
+        }
     }
 
 #endregion // MonoBehaviour
+
+#region Helper Methods
+
+    void ProcessPowerUp(PowerUpType powerUpType)
+    {
+        switch(powerUpType)
+        {
+            case PowerUpType.AddLife:
+                onGetLifePowerUp.Invoke();
+                break;
+            default:
+                break;
+        }
+    }
+
+#endregion // Helper Methods
+
 }
