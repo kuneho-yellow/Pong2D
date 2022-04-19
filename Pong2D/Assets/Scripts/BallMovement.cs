@@ -13,7 +13,6 @@ public class BallMovement : MonoBehaviour
     Rigidbody2D thisRigidbody;
     bool isActive = false;          // Set to true when ball is moving, false when it is still coasting on top of the paddle
     bool isInputStarted = false;    // Set to true when the user touches the lower half of the screen
-    bool startMovementFlag = false;
 
 #region MonoBehavior
 
@@ -33,22 +32,44 @@ public class BallMovement : MonoBehaviour
 
     void Update()
     {
-        // If ball is not yet active, check user input
+        // If ball is not yet active, check for user input
         // TODO: Consider if input code should be centralized somewhere else instead
         if (!isActive)
         {
+            // Activate the ball on mouse press and release on the lower half of the screen
+#if UNITY_EDITOR  
             // Editor / PC controls
-            // Activate the ball on mouse release on the lower half of the screen
-            // TODO: Implement the "lower half" part
             if (Input.GetMouseButtonDown(0))
             {
-                isInputStarted = true;
+                isInputStarted = IsInputOnLowerPartOfScreen(Input.mousePosition);
             }
-            if (Input.GetMouseButtonUp(0) && isInputStarted)
+            if (Input.GetMouseButtonUp(0))
             {
+                if (isInputStarted && IsInputOnLowerPartOfScreen(Input.mousePosition))
+                {
+                    Activate();
+                }
                 isInputStarted = false;
-                Activate();
             }
+#else
+            // Touch controls
+            if (Input.touchCount > 0)
+            {
+                Touch touch = Input.GetTouch(0);
+                if (touch.phase == TouchPhase.Began)
+                {
+                    isInputStarted = IsInputOnLowerPartOfScreen(touch.position);
+                }
+                else if (touch.phase == TouchPhase.Ended)
+                {
+                    if (isInputStarted && IsInputOnLowerPartOfScreen(touch.position))
+                    {
+                        Activate();
+                    }
+                    isInputStarted = false;
+                }
+            }
+#endif
         }
     }
 
@@ -57,13 +78,6 @@ public class BallMovement : MonoBehaviour
         if (!isActive)
         {
             return;
-        }
-
-        // Start moving the ball by assigning an upward velocity
-        if (startMovementFlag)
-        {
-            this.thisRigidbody.velocity = Vector2.up * speed;
-            startMovementFlag = false;
         }
 
         // Ball can naturally gain/lose speed when getting stuck between other rigidbodies
@@ -90,8 +104,9 @@ public class BallMovement : MonoBehaviour
     {
         transform.SetParent(null);
         thisRigidbody.simulated = true;
-        startMovementFlag = true;
         isActive = true;
+        // Start moving the ball by assigning an upward velocity
+        this.thisRigidbody.velocity = Vector2.up * speed;
     }
 
     void Deactivate()
@@ -101,8 +116,14 @@ public class BallMovement : MonoBehaviour
         thisRigidbody.simulated = false;
         transform.position = parentWhenInactive.position;
         transform.SetParent(parentWhenInactive);
-        startMovementFlag = false;
         isActive = false;
+    }
+
+    bool IsInputOnLowerPartOfScreen(Vector2 inputPos)
+    {
+        // Return true if input is within the lower 40% of the screen
+        Vector2 viewportPos = Camera.main.ScreenToViewportPoint(inputPos);
+        return viewportPos.y <= 0.4f;
     }
 
 #endregion // Helper Methods
