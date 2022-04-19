@@ -16,16 +16,10 @@ public class PowerUp : MonoBehaviour
         thisRigidbody = gameObject.GetComponent<Rigidbody2D>();
     }
 
-    void Update()
-    {
-        // Move downwards at constant speed
-        this.transform.Translate(Vector3.down * dropSpeed * Time.deltaTime);
-    }
-
     void FixedUpdate()
     {
         // Move downwards at constant speed
-        thisRigidbody.MovePosition(Vector2.down * dropSpeed * Time.fixedDeltaTime);
+        thisRigidbody.MovePosition((Vector2)transform.position + (Vector2.down * dropSpeed * Time.fixedDeltaTime));
     }
 
     void OnTriggerEnter2D(Collider2D other)
