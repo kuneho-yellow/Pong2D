@@ -34,6 +34,8 @@ public class SceneLoader : MonoBehaviour
 
 #region Level Management
 
+    // TODO: Do async scene loading w/ DontDestroy for proper scene transitions
+
     public void LoadLevel(int level)
     {
         SceneManager.LoadScene(GetSceneIndexFromLevel(level));
@@ -63,13 +65,11 @@ public class SceneLoader : MonoBehaviour
 
     int GetMainScreenSceneIndex()
     {
-        // TODO: Update if needed
         return 0;
     }
 
     int GetSceneIndexFromLevel(int level)
     {
-        // TODO: Update this if scene indices do not align with level number
         return Mathf.Clamp(level, MIN_LEVEL, MAX_LEVEL);
     }
 

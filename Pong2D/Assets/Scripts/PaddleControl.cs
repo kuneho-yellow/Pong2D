@@ -45,7 +45,7 @@ public class PaddleControl : MonoBehaviour
     void Update()
     {
 #if !UNITY_EDITOR
-        // Touch controls
+        // Simple touch controls
         // Mirror any swiping movements on the lower part of the screen
         if (Input.touchCount > 0)
         {
@@ -105,13 +105,11 @@ public class PaddleControl : MonoBehaviour
     bool IsInputOnLowerPartOfScreen(Vector2 inputPos)
     {
         // Return true if input is within the lower 40% of the screen
-        Vector2 viewportPos = Camera.main.ScreenToViewportPoint(inputPos);
-        return viewportPos.y <= 0.4f;
+        return Camera.main.ScreenToViewportPoint(inputPos).y <= 0.4f;
     }
 
     Vector2 ConvertTouchDeltaToWorldSpace(Vector2 touchDeltaPos)
     {
-        // Return true if input is within the lower 40% of the screen
         Vector2 worldPos = Camera.main.ScreenToWorldPoint(swipeDeltaPos); 
         Vector2 worldPos0 = Camera.main.ScreenToWorldPoint(Vector2.zero); 
         return worldPos - worldPos0;

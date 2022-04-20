@@ -31,5 +31,7 @@ public class WallPosition : MonoBehaviour
         rightWallPos.x = cameraXPos + halfWidth;
         wallParentL.position = leftWallPos;
         wallParentR.position = rightWallPos;
+
+        // TODO: Maybe also adjust game object widths
     }
 }
