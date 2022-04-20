@@ -60,6 +60,10 @@ public class BallMovement : MonoBehaviour
                 {
                     isInputStarted = IsInputOnLowerPartOfScreen(touch.position);
                 }
+                else if (touch.phase == TouchPhase.Moved)
+                {
+                    isInputStarted = false;
+                }
                 else if (touch.phase == TouchPhase.Ended)
                 {
                     if (isInputStarted && IsInputOnLowerPartOfScreen(touch.position))
