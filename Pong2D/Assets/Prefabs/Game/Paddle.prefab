@@ -131,6 +131,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b3aefd726692e44e9eb55ce73bf2b83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftWallLocation: {fileID: 0}
+  rightWallLocation: {fileID: 0}
   onGetLifePowerUp:
     m_PersistentCalls:
       m_Calls: []
@@ -142,7 +144,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6057252596082014575}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0

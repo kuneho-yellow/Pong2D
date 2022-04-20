@@ -3767,6 +3767,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -1124663906570179853, guid: a299f4ea3c6878f4a85277a16cb354f9, type: 3}
+      propertyPath: leftWallLocation
+      value: 
+      objectReference: {fileID: 5186558093756593509}
+    - target: {fileID: -1124663906570179853, guid: a299f4ea3c6878f4a85277a16cb354f9, type: 3}
+      propertyPath: rightWallLocation
+      value: 
+      objectReference: {fileID: 5186558093756593508}
+    - target: {fileID: -1124663906570179853, guid: a299f4ea3c6878f4a85277a16cb354f9, type: 3}
       propertyPath: onGetLifePowerUp.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -4105,3 +4113,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06b95aa5b3cb9c9478fa742bf39ee2c8, type: 3}
+--- !u!4 &5186558093756593508 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4008616873252200741, guid: 06b95aa5b3cb9c9478fa742bf39ee2c8, type: 3}
+  m_PrefabInstance: {fileID: 5186558093756593507}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5186558093756593509 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2801405713654521904, guid: 06b95aa5b3cb9c9478fa742bf39ee2c8, type: 3}
+  m_PrefabInstance: {fileID: 5186558093756593507}
+  m_PrefabAsset: {fileID: 0}

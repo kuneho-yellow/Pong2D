@@ -4,16 +4,42 @@ using UnityEngine.Events;
 public class PaddleControl : MonoBehaviour
 {
     [SerializeField]
+    Transform leftWallLocation;
+    [SerializeField]
+    Transform rightWallLocation;
+    [SerializeField]
     UnityEvent onGetLifePowerUp;
 
     Rigidbody2D thisRigidbody;
     Vector2 swipeDeltaPos;
+    float minXPos = float.MinValue;
+    float maxXPos = float.MaxValue;
 
 #region MonoBehavior
 
     void Awake()
     {
         thisRigidbody = gameObject.GetComponent<Rigidbody2D>();
+    }
+
+    void Start()
+    {
+        // Compute movement constaints along x-axis
+        if (leftWallLocation != null && rightWallLocation != null)
+        {
+            // Refer to the current wall locations
+            minXPos = leftWallLocation.position.x;
+            maxXPos = rightWallLocation.position.x;
+        }
+        else
+        {
+            // If there are no walls referenced, use screen edges
+            minXPos = Camera.main.ViewportToWorldPoint(Vector2.zero).x;
+            maxXPos = Camera.main.ViewportToWorldPoint(Vector2.one).x;
+        }
+        float halfWidth = thisRigidbody.GetComponent<Collider2D>().bounds.size.x * 0.5f;
+        minXPos += halfWidth;
+        maxXPos -= halfWidth;
     }
 
     void Update()
@@ -47,7 +73,8 @@ public class PaddleControl : MonoBehaviour
         newPos.x += ConvertTouchDeltaToWorldSpace(swipeDeltaPos).x;
         swipeDeltaPos = Vector2.zero;
 #endif
-        thisRigidbody.MovePosition(newPos); // Note: Behavior may work differently in 3D
+        newPos.x = Mathf.Clamp(newPos.x, minXPos, maxXPos);
+        thisRigidbody.MovePosition(newPos);
     }
 
     void OnTriggerEnter2D(Collider2D other)

@@ -83,8 +83,6 @@ public class BallMovement : MonoBehaviour
         // Ball can naturally gain/lose speed when getting stuck between other rigidbodies
         // Prevent this by regularly correcting the speed to a constant value
         thisRigidbody.velocity = thisRigidbody.velocity.normalized * speed;
-
-        // TODO: Adjust movement angle to avoid getting stuck perpetually bouncing horizontally/verticlaly
     }
 
     void OnTriggerEnter2D(Collider2D other)
